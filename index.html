@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spam Detection Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .spam {
+            background: #ffcccc;
+            color: #b30000;
+        }
+
+        .ham {
+            background: #ccffcc;
+            color: #006600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Spam Detection Test</h2>
+
+    <input type="email" id="sender" placeholder="Sender Email">
+    <input type="text" id="subject" placeholder="Subject">
+    <textarea id="message" rows="5" placeholder="Enter message here..."></textarea>
+
+    <button onclick="checkSpam()">Check Spam</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function checkSpam() {
+        const message = document.getElementById("message").value.toLowerCase();
+        const resultDiv = document.getElementById("result");
+
+        // Simple keyword-based testing logic (temporary)
+        const spamKeywords = ["win", "free", "money", "prize", "click here", "urgent"];
+
+        let isSpam = spamKeywords.some(keyword => message.includes(keyword));
+
+        if (isSpam) {
+            resultDiv.innerHTML = "⚠️ This message is SPAM";
+            resultDiv.className = "result spam";
+        } else {
+            resultDiv.innerHTML = "✅ This message is NOT Spam";
+            resultDiv.className = "result ham";
+        }
+
+        /*
+        // If you have backend API, use this instead:
+
+        fetch("http://localhost:5000/predict", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                sender: document.getElementById("sender").value,
+                subject: document.getElementById("subject").value,
+                message: document.getElementById("message").value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            resultDiv.innerHTML = data.prediction;
+        });
+        */
+    }
+</script>
+
+</body>
+</html>
+   
